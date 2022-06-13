@@ -1,0 +1,60 @@
+<html>
+
+<head>
+    <title>Contact Form !</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+</head>
+
+<body>
+
+    <h1> Want to contact me?</h1>
+
+    <!-- Main (Home) section -->
+    <div id="v-Container">
+        <div class="container">
+            <form id="contact">
+                <p><input tabindex="1" id="contactname" name="contactname" type="text" autofocus=""
+                        placeholder="Your name" size="40" value="myName" /></p>
+                <p><input tabindex="2" id="contactemail" name="contactemail" type="email"
+                        placeholder="Your Email address" size="40" value="myEmail@gmail.com" /></p>
+                <p><textarea tabindex="3" id="content" name="content" required="" placeholder="Type your comment here"
+                        rows="4" cols="40"></textarea></p>
+                <p><input tabindex="2" id="rating" name="rating" type="text" placeholder="Rating out of 10" size="40" />
+                </p>
+                <p><input id="birthdaytime" name="birthdaytime" type="datetime-local" size="40"></p>
+                <button class="g-recaptcha" data-sitekey="6LcKxUggAAAAAAjFhdnQIc90Vqe_Inwyfe1cYhE-"
+                    data-callback='onSubmit' data-action='submit'>Submit</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+
+        let apiUrl = 'https://ehjm0i2jb7.execute-api.ap-northeast-1.amazonaws.com/stag';
+
+        function onSubmit(token) {
+
+            var formData = Object.fromEntries(new FormData(document.querySelector('form')).entries());
+            let finalFormData = Object.assign(formData, { 'g-recaptcha-response': token });
+
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(finalFormData)
+            })
+                .then(res => res.json())
+                .then(res => console.log(res))  // {"message":"Email processed succesfully!"};
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+
+    </script>
+
+</body>
+
+</html>
