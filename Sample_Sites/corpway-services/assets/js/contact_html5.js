@@ -1,4 +1,4 @@
-let apiUrl = "https://ehjm0i2jb7.execute-api.ap-northeast-1.amazonaws.com/stag";
+let apiUrl = "https://n4q089b0u0.execute-api.ap-southeast-1.amazonaws.com/Prod";
 
 $("form").submit(function (event) {
   //console.log("form submitted.");
