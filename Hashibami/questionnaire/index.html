@@ -259,7 +259,7 @@
       </div>
       <div class="form-row">
         <div class="form-group">
-          <button class="btn btn-submit g-recaptcha" data-sitekey="6LcKxUggAAAAAAjFhdnQIc90Vqe_Inwyfe1cYhE-"
+          <button class="btn btn-submit g-recaptcha" data-sitekey="6LdeiWsgAAAAAG5tH5i4d6-ntFbKP5mSwJrE8F6e"
             data-callback='onSubmit' data-action='submit'>Submit 提交</button>
         </div>
       </div>
@@ -268,8 +268,6 @@
 
 
     <footer id="pgfooter">
-
-
       <main>
         <div class="row" id="contactrow">
           <section class="contactcol contactcol-A">
@@ -322,69 +320,14 @@
           <!-- 1 soc link -->
         </ul>
 
-        <p id="disclaimer"> © <span id="year">2022</span> Hashibami.
-        </p>
+        <p id="disclaimer"> © <span id="year">2022</span> Hashibami.</p>
         <!--  CI-->
-
-
-
       </main>
       <!-- #pgfooter-->
     </footer>
   </div>
   <script src="https://www.google.com/recaptcha/api.js"></script>
-  <script>
-
-    let apiUrl = 'https://ehjm0i2jb7.execute-api.ap-northeast-1.amazonaws.com/stag';
-
-    function onSubmit(token) {
-
-      let hasError = checkReq();
-
-      if (hasError) return;
-
-      var formData = Object.fromEntries(new FormData(document.querySelector('form')).entries());
-      let finalFormData = Object.assign(formData, { 'g-recaptcha-response': token });
-
-      fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(finalFormData)
-      })
-        .then(res => res.json())
-        .then(res => {
-          showThankYou();
-          //console.log(res); // {"message":"Email processed succesfully!"};
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
-    }
-
-    function checkReq() {
-      let hasError = false;
-      $('select[required]').each(function (e) {
-        if ($(this).val() == '') {
-          hasError = true;
-          $(this).closest('.form-row').find('h5').show();
-        } else {
-          $(this).closest('.form-row').find('h5').hide();
-        };
-      });
-      return hasError;
-    };
-
-    function showThankYou() {
-      $('.heades p').each(function (e) { $(this).remove() });
-      $('form').remove();
-
-      let thankYou = '<p>Thank you and look forward to seeing you again in Hashibami!</p><p>謝謝！期待再次光臨 榛 Hashibami！</p>';
-      $('.heades').addClass('finish').append(thankYou);
-    }
-
-  </script>
+  <script src="contact.js"></script>
   <script src="app.js"></script>
   <style>
     h5 {

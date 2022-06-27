@@ -1,8 +1,6 @@
 // This is the reCaptcha secret key
-const reCaptchaSecret = process.env.RECAPTCHASECRET;
-const reCapUrl = process.env.RECAPTCHAURL;
+const reCapUrl = 'https://www.google.com/recaptcha/api/siteverify';
 const emailList = JSON.parse(process.env.MAILLIST);
-//const mailFrom = process.env.MAILFROM;
 
 const { SESv2Client, SendEmailCommand } = require("@aws-sdk/client-sesv2");
 const axios = require("axios");
@@ -14,8 +12,7 @@ const concatContent = (eventBody) => {
       contentData += `${key}: ${eventBody[key] ? eventBody[key] : ""}\n`;
     }
   }
-
-  //console.log('Result: ', contentData);
+  
   return contentData;
 };
 
@@ -48,7 +45,7 @@ exports.handler = async (event) => {
     return response;
   }
 
-  const { sitename, mailfrom, mailto } = target;
+  const { sitename, captchaKey, mailfrom, mailto } = target;
 
   let eventBody = event.body;
 
@@ -58,7 +55,7 @@ exports.handler = async (event) => {
     method: "post",
     url: reCapUrl,
     params: {
-      secret: reCaptchaSecret,
+      secret: captchaKey,
       response: eventBody["g-recaptcha-response"],
     },
     headers: {
