@@ -2,7 +2,7 @@
 > npm install
 
 there's no need to build!
-just zip the entire folder with the followings
+just zip with the followings
 
 / node_modules
 - index.js
