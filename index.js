@@ -77,14 +77,15 @@ exports.handler = async (event) => {
   }
 
   // if verify failed
-  if (verifyResult.data["success"] !== true) {
-    const response = {
-      statusCode: verifyResult.status,
-      body: JSON.stringify({ error: verifyResult.data["error-codes"] }),
-    };
-    console.log(response);
-    return response;
-  }
+  // still going to send even verify failed :)
+  // if (verifyResult.data["success"] !== true) {
+  //   const response = {
+  //     statusCode: verifyResult.status,
+  //     body: JSON.stringify({ error: verifyResult.data["error-codes"] }),
+  //   };
+  //   console.log(response);
+  //   return response;
+  // }
 
   let contentData = concatContent(eventBody);
   const emailParams = {
@@ -126,7 +127,7 @@ exports.handler = async (event) => {
       statusCode: 500,
       body: JSON.stringify({ error: e.errorMessage }),
     };
-    console.log(response);
+    console.log(e);
     return response;
   }
 };
